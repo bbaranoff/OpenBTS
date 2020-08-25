@@ -60,7 +60,7 @@ ReportingTable gReports(gConfig.getStr("Control.Reporting.StatsTable").c_str());
 #include <unistd.h>
 #include <string.h>
 #include <signal.h>
-
+#define DEFAULT_CMD_PATH "/var/run/command"
 // (pat) mcheck.h is for mtrace, which permits memory leak detection.
 // Set env MALLOC_TRACE=logfilename
 // Call mtrace() in the program.
@@ -372,7 +372,7 @@ int main(int argc, char *argv[])
 	srandom(time(NULL));
 
 	gConfig.setUpdateHook(purgeConfig);
-	LOG(ALERT) << "OpenBTS (re)starting, ver " << VERSION << " build date " << __DATE__;
+	LOG(ALERT) << "OpenBTS (re)starting, ver build date " << __DATE__;
 
 	COUT("\n\n" << gOpenBTSWelcome << "\n");
 	gTMSITable.open(gConfig.getStr("Control.Reporting.TMSITable").c_str());
@@ -623,9 +623,10 @@ int main(int argc, char *argv[])
 
 	struct sockaddr_un cmdSockName;
 	cmdSockName.sun_family = AF_UNIX;
-	const char* sockpath = gConfig.getStr("CLI.SocketPath").c_str();
-	char rmcmd[strlen(sockpath)+5];
-	sprintf(rmcmd,"rm -f %s",sockpath);
+	char sockpath[200];
+	sprintf(sockpath, DEFAULT_CMD_PATH);
+ 	char rmcmd[strlen(sockpath)+5];
+        sprintf(rmcmd,"rm %s",sockpath);
 	if (system(rmcmd)) {}
 	strcpy(cmdSockName.sun_path,sockpath);
 	LOG(INFO) "binding CLI datagram socket at " << sockpath;

@@ -36,7 +36,7 @@ using namespace SIP;
 void openbts_message_init(osip_message_t ** msg){
 	osip_message_init(msg);
 	//I think it's like 40 characters
-	static const char* userAgent = "OpenBTS " VERSION " Build Date " __DATE__;
+	static const char* userAgent = "OpenBTS Build Date " __DATE__;
 	const char *tag = userAgent;
 	osip_message_set_user_agent(*msg, strdup(tag));
 }

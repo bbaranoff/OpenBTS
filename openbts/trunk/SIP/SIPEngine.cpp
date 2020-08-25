@@ -1249,7 +1249,7 @@ void SIPEngine::InitRTP(const osip_message_t * msg )
 	get_rtp_params(msg, d_port, d_ip_addr);
 	LOG(DEBUG) << "IP="<<d_ip_addr<<" "<<d_port<<" "<<mRTPPort;
 
-	rtp_session_set_local_addr(mSession, "0.0.0.0", mRTPPort );
+	rtp_session_set_local_addr(mSession, "0.0.0.0", mRTPPort , 8099);
 	rtp_session_set_remote_addr(mSession, d_ip_addr, atoi(d_port));
 
 	// Check for event support.
@@ -1617,7 +1617,7 @@ SIPState SIPEngine::inboundHandoverSendINVITE(TransactionEntry *transaction, uns
 		// Hardcode RTP session type to GSM full rate (GSM 06.10).
 		// FIXME -- Make this work for multiple vocoder types.
 		rtp_session_set_payload_type(mSession, 3); 
-		rtp_session_set_local_addr(mSession, "0.0.0.0", mRTPPort );
+		rtp_session_set_local_addr(mSession, "0.0.0.0", mRTPPort , 8099 );
 		rtp_session_set_remote_addr(mSession, mRTPRemIP.c_str(), mRTPRemPort);
 		// Check for event support.
 		int code = rtp_session_telephone_events_supported(mSession);

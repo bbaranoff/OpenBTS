@@ -28,7 +28,8 @@
 #include "poll.h"
 #include <sys/socket.h>
 #include <unistd.h>
-
+#include <stdio.h>
+#include <string.h>
 namespace SMqueue {
 
 class short_msg_pending;		// Forward declaration

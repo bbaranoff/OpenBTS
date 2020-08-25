@@ -25,6 +25,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <cstdio>
+#include <signal.h>
 
 #include "SMSMessages.h"
 #include <Logger.h>
